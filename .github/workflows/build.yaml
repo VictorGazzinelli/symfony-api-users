@@ -8,8 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: DATABASE_URL="mysql://root:root@127.0.0.1:3306/users?serverVersion=5.7"
+    # env:
+    #   DATABASE_URL: DATABASE_URL="mysql://root:root@127.0.0.1:3306/users?serverVersion=5.7"
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
