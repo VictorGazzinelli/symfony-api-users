@@ -2,8 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\UserAddress;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity()
@@ -59,9 +61,26 @@ class User
      */
     private ?\DateTime $updatedAt = null;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="UserAddress")
+     * @ORM\JoinColumn()
+     */
+    private UserAddress $address;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="UserContactPhone")
+     * @ORM\JoinTable(
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="phonenumber_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $phonenumbers; // ArrayCollection?
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->phonenumbers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): int
